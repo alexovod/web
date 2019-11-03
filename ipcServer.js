@@ -1,9 +1,5 @@
 
-const ipc = require("node-ipc");
-ipc.config.id = "observer";
-ipc.config.silent = true;
-
-const { fork, spawn } = require('child_process');
+const { spawn } = require('child_process');
 const options = {
     slient:true,
     detached:true,
@@ -20,7 +16,11 @@ process.on('exit', function(code) {
 process.on('SIGINT', function() {
     process.exit();
 });
-    
+
+const ipc = require("node-ipc");
+ipc.config.id = "observer";
+ipc.config.silent = true;
+
 ipc.serve(() => {
     ipc.server.on("connect", () => {
         console.log("server got connect");
